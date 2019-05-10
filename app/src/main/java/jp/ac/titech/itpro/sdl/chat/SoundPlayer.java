@@ -2,13 +2,14 @@ package jp.ac.titech.itpro.sdl.chat;
 
 import android.content.Context;
 import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 
 class SoundPlayer {
     private final SoundPool soundPool;
     private final int soundConnected;
     private final int soundDisconnected;
-    private final int sound;
+    private final MediaPlayer sound;
 
     SoundPlayer(Context context) {
         AudioAttributes attrs = new AudioAttributes.Builder()
@@ -25,7 +26,7 @@ class SoundPlayer {
         soundConnected = soundPool.load(context, R.raw.nhk_doorbell, 1);
         // https://www2.nhk.or.jp/archives/creative/material/view.cgi?m=D0002070102_00000
         soundDisconnected = soundPool.load(context, R.raw.nhk_woodblock2, 1);
-        sound = soundPool.load(context, R.raw.honda, 1);
+        sound = MediaPlayer.create(context, R.raw.honda);
     }
 
 
@@ -38,6 +39,6 @@ class SoundPlayer {
     }
 
     void playSound() {
-        soundPool.play(sound, 1.0f, 1.0f, 0, 0, 1);
+        sound.start();
     }
 }
